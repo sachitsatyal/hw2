@@ -19,8 +19,12 @@ def get_device():
 def apply_discount(raw_reward, gamma=0.99):
     # TODO: Compute discounted_rtg_reward (as a list) from raw_reward
     # HINT: Reverse the input list, keep a running-average. Reverse again to get the correct order.
+    discounted_rtg_reward = []
+    running_sum = 0
+    for r in reversed(raw_reward):
+        running_sum = r + gamma * running_sum
+        discounted_rtg_reward.insert(0, running_sum)
 
-    discounted_rtg_reward = ???
     # Normalization
     discounted_rtg_reward = np.array(discounted_rtg_reward)
     discounted_rtg_reward = discounted_rtg_reward - np.mean(discounted_rtg_reward) / (np.std(discounted_rtg_reward) + np.finfo(np.float32).eps)
